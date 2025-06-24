@@ -10,20 +10,20 @@ from fastapi.responses import StreamingResponse
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
 
-@router.get("/ui/", response_class=HTMLResponse)
+@router.get("/web/", response_class=HTMLResponse)
 async def home(request: Request, skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)):
     tiles = await crud.get_tiles(db, skip=skip, limit=limit)
     return templates.TemplateResponse("tiles/index.html", {"request": request, "tiles": tiles})
 
-@router.get("/ui/new-tile", response_class=HTMLResponse)
+@router.get("/web/new-tile", response_class=HTMLResponse)
 async def new_tile(request: Request):
     return templates.TemplateResponse("tiles/new-tile.html", {"request": request, "message": "Olá FastAPI!"})
 
-@router.get("/ui/view", response_class=HTMLResponse)
+@router.get("/web/view", response_class=HTMLResponse)
 async def view(request: Request):
     return templates.TemplateResponse("view/index.html", {"request": request, "message": "Olá FastAPI!"})
 
-@router.get("/ui/map", response_class=HTMLResponse)
+@router.get("/web/map", response_class=HTMLResponse)
 async def view(request: Request):
     return templates.TemplateResponse("map/index.html", {"request": request, "message": "Olá FastAPI!"})
 

@@ -1,0 +1,12 @@
+/output-tiles
+/input-tiles
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.venv/
+build/
+dist/
+
+venv

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Exemplo de Mapa com Leaflet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+  <!-- CSS do Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha512-sA+e2ERmFQPZpEvm+TrCKPqz9QxA+aE6dx3v4U+tX9tqjOKoA6KvOKy+RZbSRvY9vDSrppR8oIfCjso2myPN8w=="
+    crossorigin=""
+  />
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>View</h1>
+  <div id="map"></div>
+
+  <!-- JS do Leaflet -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha512-oCkkzLZYQ3pXW14WoefpsWbOZ+7RYhVNEgZ3XUJ37V3D4t2Zs64LZ6VfbM8pFclP3boUbC2f2pDSEZbRIUNi4w=="
+    crossorigin=""
+  ></script>
+
+  <script>
+    // Inicializa o mapa e define a posição e zoom
+    const map = L.map('map').setView([-23.5505, -46.6333], 13); // São Paulo, por exemplo
+
+    // Adiciona o tile layer do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    // Adiciona um marcador
+    L.marker([-23.5505, -46.6333])
+      .addTo(map)
+      .bindPopup('Olá! Este é um ponto em São Paulo.')
+      .openPopup();
+  </script>
+
+</body>
+</html>

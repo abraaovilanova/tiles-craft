@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Novo Tile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <h1>Cadastrar Novo Tile</h1>
+
+  <form onsubmit="submitForm(event)">
+    <label for="titulo">Título do Tile</label>
+    <input type="text" id="title" name="title" placeholder="Ex: Satélite OSM">
+    <br />
+    <label for="nome">Nome Interno</label>
+    <input type="text" id="name" name="name" placeholder="Ex: osm_satellite">
+    <br />
+    <label for="src">URL do Tile (src)</label>
+    <input type="text" id="src" name="src" placeholder="Ex: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
+    <br />
+    <button type="">Salvar</button>
+    <button type="reset" onclick="window.location.href='/ui/'">Cancelar</button>
+  </form>
+<script>
+  async function submitForm(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = {
+      name: formData.get("name"),
+      title: formData.get("title"),
+      src: formData.get("src"),
+      status: 'processed'
+    };
+
+    const response = await fetch("/tiles/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      window.location.href = "/ui";
+    } else {
+      alert("Erro ao cadastrar tile");
+    }
+  }
+</script>
+</body>
+</html>

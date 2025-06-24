@@ -22,19 +22,36 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-    const map = L.map('map').setView([-23.5505, -46.6333], 10);
+    // Converte tile XYZ para lat/lon
+    function tile2lat(y, z) {
+        const n = Math.PI - 2 * Math.PI * y / Math.pow(2, z);
+        return (180 / Math.PI) * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n)));
+    }
+
+    function tile2lon(x, z) {
+        return x / Math.pow(2, z) * 360 - 180;
+    }
+
+    const z = 10;
+    const x = 372;
+    const y = 429;
+
+    const lat = tile2lat(y, z);
+    const lon = tile2lon(x, z);
+
+    const map = L.map('map').setView([lat, lon], z);
 
     // Mapa base do OSM
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Raster overlay (se tiver transparência)
+    // Raster overlay
     L.tileLayer('/tiles/{z}/{x}/{y}.png', {
-        // maxZoom: 5,
         tileSize: 256,
-        opacity: 0.9, // útil se o raster tiver fundo transparente
-        attribution: '© Seus Rasters'
+        opacity: 0.9,
+        attribution: '© Seus Rasters',
+        tms: true, // MUITO IMPORATNTE
     }).addTo(map);
 </script>
 </body>

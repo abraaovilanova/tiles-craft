@@ -27,6 +27,11 @@ async def view(request: Request):
 async def view(request: Request):
     return templates.TemplateResponse("map/index.html", {"request": request, "message": "Olá FastAPI!"})
 
+@router.get("/web/draw", response_class=HTMLResponse)
+async def view(request: Request):
+    return templates.TemplateResponse("map/draw-map.html", {"request": request, "message": "Olá FastAPI!"})
+
+
 @router.get("/tiles/{z}/{x}/{y}.png")
 def get_tile(z: int, x: int, y: int):
   TILE_BUCKET = "tiles-bucket"

@@ -4,7 +4,7 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import FastAPI, Depends
 from app.config.db import get_db
-from app.routes import tiles, publish, web
+from app.routes import tiles, publish, web, collect
 import os
 
 app = FastAPI()
@@ -29,3 +29,4 @@ async def health_check(db: AsyncSession = Depends(get_db)):
 app.include_router(tiles.router)
 app.include_router(web.router)
 app.include_router(publish.router)
+app.include_router(collect.router)

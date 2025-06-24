@@ -8,3 +8,5 @@ alembic
 psycopg2-binary
 Jinja2
 minio
+rasterio
+shapely

@@ -9,7 +9,7 @@ router = APIRouter()
 def publish_tile():
     # Parâmetros para a função
     input_bucket = "raster-bucket"
-    input_object = "mde_29082se_v1.tif"
+    input_object = "chirps-v3.0.1981.0102.tif"
 
     output_bucket = "tiles-bucket"
     output_prefix = "tiles/meu_raster"

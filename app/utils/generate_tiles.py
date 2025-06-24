@@ -32,7 +32,7 @@ def generate_tiles_with_minio(minio_client, input_bucket, input_object, output_b
 
         # Gera os tiles usando o arquivo convertido
         subprocess.run([
-            "gdal2tiles.py", "-z", "0-16", vrt_path, tiles_path
+            "gdal2tiles.py", "-z", "0-5", vrt_path, tiles_path
         ], check=True)
 
         # Faz o upload dos tiles

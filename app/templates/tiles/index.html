@@ -17,9 +17,13 @@
   </style>
 </head>
 <body>
-  <h1>Lista de Tiles</h1>
-  <button onclick="window.location.href='/web/new-tile'">Novo Tile</button>
+  <h1 onclick="window.location.href='/web/'">Tile Craft ⬡</h1>
+  <h2>Lista de Tiles</h2>
 
+  <div>
+    <a href="window.location.href='/web/new-tile'">Novo Tile</a>
+  </div>
+  <br />
   <table>
     <thead>
       <tr>
@@ -41,10 +45,10 @@
       <td>
         
         {% if tile.status == "published" %}
-        <button> {{ tile.status }}</button>
+        <a onclick="window.location.href='/web/map/?tile_name={{ tile.name }}'">{{ tile.status }}</a>
         {% endif %}
         {% if tile.status == "not_published" %}
-        <button onclick='publicarTile({{ tile | tojson }})'>Publicar</button>
+        <a onclick='publicarTile({{ tile | tojson }})'>Publicar</a>
         {% endif %}
       </td>
         <td>

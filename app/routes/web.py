@@ -1,11 +1,10 @@
-from fastapi import APIRouter, Depends, Request, HTTPException
+from fastapi import APIRouter, Depends, Request, Query, HTTPException
 from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from app.config.db import get_db
 import app.controllers.tile as crud
 from app.storage.minio_storage import create_minio_client
-
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
 
@@ -33,8 +32,8 @@ def view(request: Request):
     return templates.TemplateResponse("view/index.html", {"request": request, "message": "Olá FastAPI!"})
 
 @router.get("/web/map", response_class=HTMLResponse)
-def map_view(request: Request):
-    return templates.TemplateResponse("map/index.html", {"request": request, "message": "Olá FastAPI!"})
+def map_view(request: Request, tile_name: str = Query(..., description="Nome do tile")):
+    return templates.TemplateResponse("map/index.html", {"request": request, "tile_name": "Olá FastAPI!"})
 
 @router.get("/web/draw", response_class=HTMLResponse)
 def draw_map(request: Request):

@@ -1,3 +1,4 @@
+from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
@@ -38,8 +39,8 @@ async def update_tile(tile_id: int, tile: TileCreate, db: AsyncSession = Depends
     return db_tile
 
 @router.delete("/tiles/{tile_id}", response_model=Tile)
-async def delete_tile(tile_id: int, db: AsyncSession = Depends(get_db)):
-    db_tile = await crud.delete_tile(db, tile_id=tile_id)
+def delete_tile(tile_id: int, db: Session = Depends(get_db)):
+    db_tile = crud.delete_tile(db, tile_id=tile_id)  # ✅ CORRETO
     if db_tile is None:
         raise HTTPException(status_code=404, detail="Tile not found")
     return db_tile

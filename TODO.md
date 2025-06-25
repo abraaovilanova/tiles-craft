@@ -18,9 +18,9 @@ A ideia geral do projeto é subir o tile em um minio - passar o url nmo cadastro
 - ajustar rotas web
 - ajustar página de cadastro de novo tile
 - link na tabela de tiles vai para o mapa
-- deletar os tiles
-- editar os tiles
-- publicar os tiles
+- Ação de deletar os tiles
+- Ação de editar os tiles
+- Ação de publicar os tiles
 
 ## 2nd release (2025-07-22)
 - usar um serviço de messageria para mandar as images para processar

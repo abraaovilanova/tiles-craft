@@ -1,32 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tiles</title>
+  <style>
+    table, th, td {
+      border: 1px solid;
+      border-collapse: collapse;
+      padding: 8px;
+    }
+
+    table {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
   <h1>Lista de Tiles</h1>
-  <button onclick="window.location.href='/ui/new-tile'">Novo Tile</button>
+  <button onclick="window.location.href='/web/new-tile'">Novo Tile</button>
+
   <table>
     <thead>
-            <tr>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Nome</th>
-                <th>Src</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for tile in tiles %}
-            <tr>
-                <td>{{ tile.id }}</td>
-                <td>{{ tile.title }}</td>
-                <td>{{ tile.name }}</td>
-                <td>{{ tile.src }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Nome</th>
+        <th>Src</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tile in tiles %}
+      <tr>
+        <td>{{ tile.id }}</td>
+        <td>{{ tile.title }}</td>
+        <td>{{ tile.name }}</td>
+        <td>{{ tile.src }}</td>
+      <td>
+        
+        {% if tile.status == "published" %}
+        <button> {{ tile.status }}</button>
+        {% endif %}
+        {% if tile.status == "not_published" %}
+        <button onclick='publicarTile({{ tile | tojson }})'>Publicar</button>
+        {% endif %}
+      </td>
+        <td>
+          <button onclick="excluirTile({{ tile.id }})">Excluir</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
+
+  <script>
+    async function publicarTile(tile) {
+      try {
+        const response = await fetch("/publish-tile", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(tile)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert("Tile publicado com sucesso!");
+          location.reload();
+        } else {
+          alert("Erro ao publicar: " + result.detail);
+        }
+      } catch (error) {
+        alert("Erro inesperado: " + error);
+      }
+    }
+
+    async function excluirTile(tileId) {
+    if (!confirm("Tem certeza que deseja excluir este tile?")) return;
+
+    try {
+      const response = await fetch(`/tiles/${tileId}`, {
+        method: "DELETE"
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Tile excluído com sucesso!");
+        location.reload();
+      } else {
+        alert("Erro ao excluir: " + result.detail);
+      }
+    } catch (error) {
+      alert("Erro inesperado: " + error);
+    }
+  }
+  </script>
 </body>
 </html>

@@ -20,7 +20,7 @@
     <input type="text" id="src" name="src" placeholder="Ex: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
     <br />
     <button type="">Salvar</button>
-    <button type="reset" onclick="window.location.href='/ui/'">Cancelar</button>
+    <button type="reset" onclick="window.location.href='/web/'">Cancelar</button>
   </form>
 <script>
   async function submitForm(event) {
@@ -30,7 +30,7 @@
       name: formData.get("name"),
       title: formData.get("title"),
       src: formData.get("src"),
-      status: 'processed'
+      status: "not_published" // Default status
     };
 
     const response = await fetch("/tiles/", {
@@ -40,7 +40,7 @@
     });
 
     if (response.ok) {
-      window.location.href = "/ui";
+      window.location.href = "/web";
     } else {
       alert("Erro ao cadastrar tile");
     }

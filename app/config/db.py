@@ -8,8 +8,8 @@ from .config import settings
 DATABASE_URL = settings.DATABASE_URL
 
 # Engine e sessão síncronas
-engine = create_async_engine(DATABASE_URL, echo=True)
-SessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 

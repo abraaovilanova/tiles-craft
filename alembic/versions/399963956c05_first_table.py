@@ -9,6 +9,7 @@ from typing import Sequence, Union
 
 from alembic import op
 import sqlalchemy as sa
+from geoalchemy2 import Geometry 
 
 
 # revision identifiers, used by Alembic.
@@ -26,6 +27,8 @@ def upgrade() -> None:
         sa.Column("title", sa.String(), nullable=False),
         sa.Column("src", sa.String(), nullable=False),
         sa.Column("status", sa.String(), nullable=False),
+        sa.Column("geom", Geometry(geometry_type="POLYGON", srid=4326), nullable=True),  # ✅ Nova coluna
+
     )
 
 

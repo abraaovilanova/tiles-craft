@@ -1,10 +1,12 @@
 from contextlib import asynccontextmanager
+from app.routes.rest import publish, tiles
+from app.routes.web import web
 from fastapi.templating import Jinja2Templates
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import FastAPI, Depends
 from app.config.db import get_db
-from app.routes import tiles, publish, web, collect
+from app.routes.rest import collect
 import os
 
 app = FastAPI()

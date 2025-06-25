@@ -10,14 +10,14 @@
   <h2>Cadastrar Novo Tile</h2>
 
   <form onsubmit="submitForm(event)">
-    <label for="titulo">Título do Tile</label>
+    <label for="titulo">Título:</label>
     <input type="text" id="title" name="title" placeholder="Ex: Satélite OSM">
     <br />
-    <label for="nome">Nome Interno</label>
+    <label for="nome">Nome:</label>
     <input type="text" id="name" name="name" placeholder="Ex: osm_satellite">
     <br />
-    <label for="src">URL do Tile (src)</label>
-    <input type="text" id="src" name="src" placeholder="Ex: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
+    <label for="src">URL:</label>
+    <input type="text" id="src" name="src" placeholder="Ex: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.tif">
     <br />
     <button type="">Salvar</button>
     <button type="reset" onclick="window.location.href='/web/'">Cancelar</button>

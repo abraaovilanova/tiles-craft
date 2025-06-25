@@ -31,3 +31,5 @@ A ideia geral do projeto é subir o tile em um minio - passar o url nmo cadastro
 
 
 infomação importante> https://chatgpt.com/share/685b1c7f-8bf8-800f-b046-66065017b9f2
+
+

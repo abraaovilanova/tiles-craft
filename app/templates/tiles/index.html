@@ -21,7 +21,7 @@
   <h2>Lista de Tiles</h2>
 
   <div>
-    <a href="window.location.href='/web/new-tile'">Novo Tile</a>
+    <a href="/web/new-tile">Novo Tile</a>
   </div>
   <br />
   <table>
@@ -45,7 +45,7 @@
       <td>
         
         {% if tile.status == "published" %}
-        <a onclick="window.location.href='/web/map/?tile_name={{ tile.name }}'">{{ tile.status }}</a>
+        <a href='/web/map/?tile_name={{ tile.name }}'>{{ tile.status }}</a>
         {% endif %}
         {% if tile.status == "not_published" %}
         <a onclick='publicarTile({{ tile | tojson }})'>Publicar</a>

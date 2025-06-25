@@ -7,20 +7,20 @@ A ideia geral do projeto é subir o tile em um minio - passar o url nmo cadastro
 - <del>add minio to salve image pyramid</del>
 - <del>add endpoint do generate image pyramid (insert image)</del>
 - <del>add endpoint to get images</del>
-- salvar metadata do tiff quando inserir um tile novo
+- <del>salvar metadata do tiff quando inserir um tile novo</del>
   - geometria
   - nome
   - title
   - adress...
-- feature de dezenhar no mapa -> semelhante a essa -> https://data.marine.copernicus.eu/product/GLOBAL_ANALYSISFORECAST_PHY_001_024/description
+- <del> feature de dezenhar no mapa -> semelhante a essa -> https://data.marine.copernicus.eu/product/GLOBAL_ANALYSISFORECAST_PHY_001_024/description </de>
 
-- parametrizar método de publicar raster
-- ajustar rotas web
+- <del>parametrizar método de publicar raster </del>
+- <del>ajustar rotas web<del>
 - ajustar página de cadastro de novo tile
-- link na tabela de tiles vai para o mapa
-- Ação de deletar os tiles
+- <del>link na tabela de tiles vai para o mapa<del>
+- <del>Ação de deletar os tiles > remover do minio </del>
 - Ação de editar os tiles
-- Ação de publicar os tiles
+- <del>Ação de publicar os tiles</del>
 
 ## 2nd release (2025-07-22)
 - usar um serviço de messageria para mandar as images para processar

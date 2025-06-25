@@ -20,13 +20,18 @@
 <script>
   const map = L.map('map').setView([-15.7942, -47.8822], 4);
 
+  // Adiciona camada base
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
+  // Grupos de camadas desenhadas e marcadores
   const drawnItems = new L.FeatureGroup();
+  const resultMarkers = new L.FeatureGroup();
   map.addLayer(drawnItems);
+  map.addLayer(resultMarkers);
 
+  // Controles de desenho
   const drawControl = new L.Control.Draw({
     edit: { featureGroup: drawnItems },
     draw: {
@@ -40,15 +45,14 @@
   });
   map.addControl(drawControl);
 
+  // Quando o usuário desenha algo novo
   map.on(L.Draw.Event.CREATED, function (event) {
     const layer = event.layer;
     drawnItems.addLayer(layer);
 
-    // Captura o GeoJSON
     const geojson = layer.toGeoJSON();
     console.log("GeoJSON enviado:", geojson);
 
-    // Envia para a API
     fetch('http://localhost:8000/collect', {
       method: 'POST',
       headers: {
@@ -59,10 +63,40 @@
     .then(response => response.json())
     .then(data => {
       console.log("Resposta da API:", data);
+
+      // Calcular coordenadas do marcador
+      let coords;
+      const geom = geojson.geometry;
+
+      if (geom.type === "Polygon") {
+        coords = geom.coordinates[0][0]; // primeiro ponto do polígono
+      } else if (geom.type === "LineString") {
+        const middleIndex = Math.floor(geom.coordinates.length / 2);
+        coords = geom.coordinates[middleIndex];
+      }
+
+      if (coords) {
+        const latlng = [coords[1], coords[0]]; // Leaflet usa [lat, lng]
+
+        const popupText = data.media !== undefined
+          ? `Média: ${data.media.toFixed(2)}`
+          : `Valores: ${data.valores.map(v => v.toFixed(2)).join(', ')}`;
+
+        const marker = L.marker(latlng)
+          .bindPopup(popupText)
+          .addTo(resultMarkers);
+
+        marker.openPopup();
+      }
     })
     .catch(error => {
       console.error("Erro ao enviar para API:", error);
     });
+  });
+
+  // Quando o usuário apaga um desenho, também limpa os markers
+  map.on(L.Draw.Event.DELETED, function () {
+    resultMarkers.clearLayers();
   });
 </script>
 

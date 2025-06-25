@@ -17,8 +17,8 @@ async def health_check(db: AsyncSession = Depends(get_db)):
         return {"status": "error", "details": str(e)}
 
 @router.post("/tiles/", response_model=Tile)
-async def create_tile(tile: TileCreate, db: AsyncSession = Depends(get_db)):
-    return await crud.create_tile(db=db, tile=tile)
+def create_tile(tile: TileCreate, db: AsyncSession = Depends(get_db)):
+    return crud.create_tile(db=db, tile=tile)
 
 @router.get("/tiles/{tile_id}", response_model=Tile)
 async def get_tile(tile_id: int, db: AsyncSession = Depends(get_db)):

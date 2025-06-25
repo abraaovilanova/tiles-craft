@@ -21,6 +21,8 @@ def generate_tiles_with_minio(minio_client, input_bucket, input_object, output_b
         vrt_path = os.path.join(tmpdir, "converted.vrt")
         tiles_path = os.path.join(tmpdir, "tiles")
 
+        print(f"Downloading {input_object} from bucket {input_bucket} to {raster_path}")
+
         # Baixa o raster
         download_from_minio(minio_client, input_bucket, input_object, raster_path)
 

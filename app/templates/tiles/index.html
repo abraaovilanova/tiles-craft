@@ -51,7 +51,8 @@
         <a onclick='publicarTile({{ tile | tojson }})'>Publicar</a>
         {% endif %}
       </td>
-        <td>
+        <td> 
+          <a href='/web/draw/?tile_name={{ tile.name }}'>Análise</a>
           <button onclick="excluirTile({{ tile.id }})">Excluir</button>
         </td>
       </tr>

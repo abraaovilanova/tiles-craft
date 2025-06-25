@@ -33,11 +33,11 @@ def view(request: Request):
 
 @router.get("/web/map", response_class=HTMLResponse)
 def map_view(request: Request, tile_name: str = Query(..., description="Nome do tile")):
-    return templates.TemplateResponse("map/index.html", {"request": request, "tile_name": "Olá FastAPI!"})
+    return templates.TemplateResponse("map/index.html", {"request": request, "tile_name": tile_name})
 
 @router.get("/web/draw", response_class=HTMLResponse)
-def draw_map(request: Request):
-    return templates.TemplateResponse("map/draw-map.html", {"request": request, "message": "Olá FastAPI!"})
+def draw_map(request: Request, tile_name: str = Query(..., description="Nome do tile")):
+    return templates.TemplateResponse("map/draw-map.html", {"request": request, "tile_name": tile_name})
 
 @router.get("/tiles/{tile_name}/{z}/{x}/{y}.png")
 def get_tile(tile_name: str, z: int, x: int, y: int):

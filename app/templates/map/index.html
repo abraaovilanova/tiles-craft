@@ -48,7 +48,7 @@
     }).addTo(map);
 
     // Raster overlay
-    L.tileLayer('/tiles/chirps-v3.0.1981.0102/{z}/{x}/{y}.png', {
+    L.tileLayer('/tiles/{{ tile_name }}/{z}/{x}/{y}.png', {
         tileSize: 256,
         opacity: 0.9,
         attribution: '© Seus Rasters',

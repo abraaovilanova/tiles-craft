@@ -15,18 +15,45 @@ para rodar basta executar o docker compose
 
 o serviço web pode ser acessado na porta `localhost:8000` 
 
-para rodar a pirâmide de zoom:
-
-How to run this code:
-build: `docker build -t gdal2tiles-container .`
-run `docker run --rm -v $(pwd)/input-tiles:/app/input-tiles -v $(pwd)/output-tiles:/app/output-tiles gdal2tiles-container`
-
-to run the application web:  `uvicorn app.main:app --reload` 
-
 ## Ferramentas utilizadas
 - python
 - Minio
 - fast api
 - gdal
 - leaflet (web)
+
+# 🗺️ Tile Craft API
+
+API construída com **FastAPI**, **SQLAlchemy** e **MinIO** para gerenciamento, geração e publicação de tiles raster.
+
+## 📦 Funcionalidades
+
+- 🔍 **Consultar Tiles** (`GET /tiles/` e `GET /tiles/{tile_id}`)
+- ➕ **Criar Tiles** (`POST /tiles/`)
+- ✏️ **Atualizar Tiles** (`PUT /tiles/{tile_id}`)
+- ❌ **Deletar Tiles** (`DELETE /tiles/{tile_id}`)
+- ⚙️ **Verificação de Saúde** (`GET /health`)
+- 🚀 **Publicar Tile** (`POST /publish-tile`)  
+  Gera tiles com `GDAL`, envia para o MinIO e atualiza o status no banco de dados.
+
+## 🧪 Endpoints
+
+| Método | Rota                  | Descrição                              |
+|--------|------------------------|----------------------------------------|
+| GET    | `/health`              | Verifica conexão com o banco           |
+| GET    | `/tiles/`              | Lista todos os tiles                   |
+| GET    | `/tiles/{tile_id}`     | Retorna detalhes de um tile            |
+| POST   | `/tiles/`              | Cria um novo tile                      |
+| PUT    | `/tiles/{tile_id}`     | Atualiza o nome de um tile             |
+| DELETE | `/tiles/{tile_id}`     | Remove um tile                         |
+| POST   | `/publish-tile`        | Gera os tiles raster e publica no MinIO|
+
+## 🛠️ Tecnologias
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [SQLAlchemy](https://www.sqlalchemy.org/)
+- [MinIO](https://min.io/)
+- [GDAL](https://gdal.org/)
+
+## 📁 Estrutura Simplificada
 
